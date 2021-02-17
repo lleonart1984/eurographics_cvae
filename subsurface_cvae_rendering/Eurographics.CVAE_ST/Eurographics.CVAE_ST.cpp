@@ -15,7 +15,7 @@ dx4xb::string desktop_directory()
 	return dx4xb::string(path);
 }
 
-#include "Teasser.h"
+#include "Teaser.h"
 //#include "Comparisons.h"
 //#include "ComparisonsLucy.h"
 //#include "ComplexityBunny.h"

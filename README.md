@@ -1,4 +1,4 @@
-# Learning Multiple-Scattering Solutions for Sphere-Tracing of Volumetric Subsurface Effects (Eurographics 2021)
+﻿# Learning Multiple-Scattering Solutions for Sphere-Tracing of Volumetric Subsurface Effects (Eurographics 2021)
 
 L. Leonard, K. Höhlein, R. Westermann
 
@@ -78,7 +78,7 @@ The models are looked at the desktop folder in a Models folder. All models used 
 The settings used in the paper can be executed via `Eurographics.CVAE_ST` project. In that project, a series of include statements can be commented and uncommented to define the desired settings.
 
 ```c++
-#include "Teasser.h"
+#include "Teaser.h"
 //#include "Comparisons.h"
 //#include "ComparisonsLucy.h"
 //#include "ComplexityBunny.h"

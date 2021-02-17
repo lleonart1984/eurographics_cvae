@@ -161,7 +161,7 @@
     <ClInclude Include="NEETests.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Teasser.h" />
+    <ClInclude Include="Teaser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Eurographics.CVAE_ST.cpp" />
