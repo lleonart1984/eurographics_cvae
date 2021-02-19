@@ -974,4 +974,53 @@ public:
 };
 
 
+class Sponza : public SceneManager {
+public:
+	Sponza() :SceneManager() {
+	}
+	~Sponza() {}
+
+	float4x4* InitialTransforms;
+
+	void SetupScene() {
+
+		camera.Position = float3(0.3f, 0.05f, -0.028);
+		camera.Target = float3(0, 0.07f, 0);
+
+		lights[0].Direction = normalize(float3(0, 1, 0));
+		lights[0].Intensity = float3(6, 6, 6)*10;
+
+		dx4xb::string desktopPath = desktop_directory();
+
+		dx4xb::string modelPath = desktopPath + dx4xb::string("\\Models\\sponza\\SponzaMoreMeshes.obj");
+
+		auto modelScene = OBJLoader::Load(modelPath);
+		modelScene->Normalize(
+			SceneNormalization::Scale |
+			SceneNormalization::Maximum //|
+			//SceneNormalization::MinX |
+			//SceneNormalization::MinY |
+			//SceneNormalization::MinZ |
+			//SceneNormalization::Center
+		);
+		scene->appendScene(modelScene);
+
+		InitialTransforms = new float4x4[scene->Instances().Count];
+		for (int i = 0; i < scene->Instances().Count; i++)
+			InitialTransforms[i] = scene->Instances().Data[i].Transform;
+
+		SceneManager::SetupScene();
+	}
+
+	virtual void Animate(float time, int frame, SceneElement freeze = SceneElement::None) override {
+		return;//
+
+		scene->Instances().Data[0].Transform =
+			mul(InitialTransforms[0], Transforms::RotateY(time));
+		OnUpdated(SceneElement::InstanceTransforms);
+	}
+};
+
+
+
 #endif

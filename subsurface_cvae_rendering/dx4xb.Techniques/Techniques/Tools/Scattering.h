@@ -19,7 +19,7 @@ float ComputeFresnel(float NdotL, float ratio)
 // Gets perfect lambertian normalized brdf ratio divided by a uniform distribution pdf value
 float3 DiffuseBRDFMulTwoPi(float3 V, float3 L, float3 fN, float NdotL, Material material)
 {
-	return material.Diffuse * 2;
+	return material.Diffuse;// *2;
 }
 
 // Gets perfect lambertian normalized brdf ratio
@@ -102,7 +102,7 @@ void RandomScatterRay(float3 V, Vertex surfel, Material material,
 	bool invertNormal = NdotV < 0;
 	NdotV = abs(NdotV); // absolute value of the cosine
 	// Ratio between refraction indices depending of exiting or entering to the medium (assuming vaccum medium 1)
-	float eta = invertNormal ? material.RefractionIndex : 1 / material.RefractionIndex;
+	float eta = !invertNormal ? material.RefractionIndex : 1 / material.RefractionIndex;
 	// Compute faced normal
 	float3 fN = invertNormal ? -surfel.N : surfel.N;
 	// Gets the reflection component of fresnel
