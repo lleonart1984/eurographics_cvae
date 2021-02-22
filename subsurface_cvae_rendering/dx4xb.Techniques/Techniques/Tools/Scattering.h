@@ -19,7 +19,7 @@ float ComputeFresnel(float NdotL, float ratio)
 // Gets perfect lambertian normalized brdf ratio divided by a uniform distribution pdf value
 float3 DiffuseBRDFMulTwoPi(float3 V, float3 L, float3 fN, float NdotL, Material material)
 {
-	return material.Diffuse;// *2;
+	return material.Diffuse * 2;
 }
 
 // Gets perfect lambertian normalized brdf ratio
@@ -41,6 +41,14 @@ float3 SpecularBRDF(float3 V, float3 L, float3 fN, float NdotL, Material materia
 	float3 H = normalize(V + L);
 	float HdotN = max(0.0001, dot(H, fN));
 	return pow(HdotN, material.SpecularSharpness) * material.Specular * (2 + material.SpecularSharpness) / two_pi;
+}
+
+
+float3 DirectContribution(float3 V, float3 L, float3 fN, float NdotL, Material material) {
+	return (
+			DiffuseBRDF(V, L, fN, NdotL, material) * material.Roulette.x +
+			SpecularBRDF(V, L, fN, NdotL, material) * material.Roulette.y
+			) * NdotL;
 }
 
 // Scatters a ray randomly using the material roulette information
